@@ -1,0 +1,19 @@
+.App {
+  text-align: center;
+}
+
+
+.App button {
+  background-color: blue;
+  color: rebeccapurple;
+  cursor: pointer;
+}
+.App button.Red{
+    background-color: indianred;
+}
+
+.App button.Red:hover {
+   background-color:green;
+   color:black;   
+   cursor: pointer;
+}
