@@ -5,7 +5,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import {Link} from 'react-router-dom'
 import "./scss/Login.css";
 
-const  RegistrationForm = ({ handleInputChange, inputVal, theme }) => { 
+const  RegistrationForm = ({ handleSubmit,handleInputChange, inputVal, theme,success }) => { 
 
   return ( 
      <Fragment> 
@@ -93,17 +93,25 @@ const  RegistrationForm = ({ handleInputChange, inputVal, theme }) => {
           />                  
       </div>
 
-      <div className="fw-100 user_info">      
+      {/* <div className="fw-100 user_info">      
         <span className="info_text">At least one capital letter</span>
         <span className="info_text">At least one number</span>
         <span className="info_text">At least one special character(@,#,$,%,*)</span>  
-      </div>
-
-      <div style={{textAlign: 'center'}}>  
-        <Button type="submit" variant="contained" color="primary" className={theme.button}>
-          CREATE ACCOUNT
-        </Button><Link to="register" style={{textDecoration: 'none'}}></Link>
-      </div>        
+      </div> */}
+      {success ?<div class="alert alert-success">
+        <strong> {success}</strong> 
+      </div>:""}
+       
+      <div style={{textAlign: 'center'}}> 
+          {!success ? 
+                <Link to="register" style={{textDecoration: 'none'}}>
+                    <Button type="submit" onClick={(e)=>handleSubmit(e)} variant="contained" color="primary" className={theme.button}>
+                    CREATE ACCOUNT
+                  </Button>
+                </Link>
+                :<Link to="/" style={{textDecoration: 'none'}}><button className="btn btn-info" >LOGIN</button></Link>
+              }     
+      </div>  
    </Fragment>         
   );
 };

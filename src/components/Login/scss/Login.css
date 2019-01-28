@@ -14,7 +14,7 @@
 .CardHed img {
     padding-left:10px;
 }
-.card{
+.cardwindow{
       width: 370px;
       border: 1px solid #423735;
       margin: auto;
@@ -23,6 +23,7 @@
       margin-top: 120px;
       border-bottom-color: #ebbda2;
       border-bottom-width: thick;
+      background-color: #423735;
 }
 .fw-100{float:left;width:100%;font-family: 'Open Sans';}
 

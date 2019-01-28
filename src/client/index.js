@@ -6,9 +6,12 @@ export const submitRequest = (data,url)=>{
     return axios({
         method:'post',
         url:endPoint+url,
+        crossdomain:false,
         data:data,
         config:{
-            headers:{'Content-Type':'application/json','Access-Control-Allow-Origin':'http://agam-doors.ap-south-1.elasticbeanstalk.com/doors-api/','Access-Control-Allow-Credentials':'true'}
+            headers:{'Content-Type':'application/json','Access-Control-Allow-Origin':'*',  
+                'Access-Control-Allow-Credentials': 'true',
+                "Cache-Control": "no-cache"}
         }
     });
 }

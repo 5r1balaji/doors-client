@@ -6,7 +6,7 @@ import lightTheme from "../../common/lightTheme"
 import { withRouter } from 'react-router-dom'
 import {bindActionCreators,connect} from 'react-redux';
 import "./scss/Login.css";
-import { login } from '../../actions/loginAction';
+import { login ,signUp} from '../../actions/loginAction';
 import compose from 'recompose/compose'
 
 
@@ -24,6 +24,14 @@ class LoginForm extends React.Component {
     this.handleInputChange = this.handleInputChange.bind(this);
   }
 
+  componentWillReceiveProps(nextProps){
+    this.setState({success:nextProps.success});
+  }
+  componentDidUpdate(){
+    if(this.props.loaded)
+      this.props.history.push("/home");
+  }
+
   handleInputChange(event) {
     const target = event.target;
     const value = target.value;
@@ -33,29 +41,36 @@ class LoginForm extends React.Component {
     });
   }
 
+  handleRegisterSubmit=(event)=>{
+    event.preventDefault();
+    let signUp={};
+    signUp.username=this.state.username;
+    signUp.password=this.state.password;
+    signUp.email=this.state.email;
+    this.props.userSignup(signUp);
+  }
+
   handleSubmit = (event) =>{
     event.preventDefault();
     let loginDetails={};
-    loginDetails.userName=this.state.username;
+    loginDetails.username=this.state.username;
     loginDetails.password=this.state.password;
-    console.log(loginDetails);
     this.props.submitLogin(loginDetails);
   }
 
   getRegisterForm = () =>{
-    console.log("hello")
+   
     const {location, classes} = this.props;
     const currentRoute = location.pathname; 
-    const loginForm = ( currentRoute.replace('/','') === 'register' ? <RegistrationForm handleInputChange = {this.handleInputChange} theme = {classes} inputVal = {this.state}/> 
-            :<LoginFormComp handleInputChange = {this.handleInputChange}  theme = {classes} inputVal = {this.state}/>)
-
+    const loginForm = ( currentRoute.replace('/','') === 'register' ? <RegistrationForm success={this.state.success} handleInputChange = {this.handleInputChange} handleSubmit={this.handleRegisterSubmit} theme = {classes} inputVal = {this.state}/> 
+            :<LoginFormComp handleInputChange = {this.handleInputChange}  handleSubmit={this.handleSubmit} theme = {classes} inputVal = {this.state}/>)
     return loginForm; 
   }
 
   render() {
     return (
       <div className='loginContainer'>  
-        <div className='card'> 
+        <div className='cardwindow'> 
           <div className ="CardHed">
              <a href="/"><img src={require("../../assets/home.JPG") } /></a>      
           </div>  
@@ -68,12 +83,18 @@ class LoginForm extends React.Component {
    }
 }
 
-function mapStateToProps (state){
-  return state;
+function mapStateToProps(state){
+  return {
+    errors:state.login.error,
+    success:state.login.success,
+    loaded:state.login.loaded
+  }
 }
+
 function mapDispatchToProps(dispatch){
   return {
-    submitLogin:(data)=>dispatch(login(data))
+    submitLogin:(data)=>dispatch(login(data)),
+    userSignup:(data)=>dispatch(signUp(data))
   }
 }
 

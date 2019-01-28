@@ -1,10 +1,9 @@
 import {
-    LOGIN_ACCOUNT_SUCCESS, LOGIN_ACCOUNT_FAILED
+    LOGIN_ACCOUNT_SUCCESS, LOGIN_ACCOUNT_FAILED, SIGNUP_ACCOUNT_SUCCESS, SIGNUP_ACCOUNT_FAILED
 } from './types'
-import { signIn } from '../gateway/Authentication';
+import { signIn,createUser } from '../gateway/Authentication';
 
 export const login = (data) => {
-    console.log(data,"inside action");
     return (dispatch) => {
             signIn(data).then(
                 function(response){
@@ -20,4 +19,23 @@ export const login = (data) => {
                     })
                 })  
     }
+}
+
+
+export const signUp=(data)=>{
+    return (dispatch) => {
+        createUser(data).then(
+            function(response){
+                dispatch({
+                    type: SIGNUP_ACCOUNT_SUCCESS,
+                    payload: response
+                })
+            })
+            .catch(function(error){
+                dispatch({
+                    type: SIGNUP_ACCOUNT_FAILED,
+                    payload:error
+                })
+            })  
+        }
 }

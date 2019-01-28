@@ -53,7 +53,7 @@ const  LoginFormComp = ({ handleSubmit,handleInputChange, inputVal, theme }) => 
 
         <div style={{width: '100%', textAlign: 'center',paddingTop:'20px',paddingBottom: '20px'}}>  
                 <div>
-                    <a href="#" className="login-button" ><button type="submit">LOGIN</button> </a>
+                   <button type="submit" className="btn btn-info" onClick={(e)=>handleSubmit(e)}>LOGIN</button>
                 </div>
         </div>
 
@@ -64,7 +64,7 @@ const  LoginFormComp = ({ handleSubmit,handleInputChange, inputVal, theme }) => 
         
         <div style={{width: '100%', textAlign: 'center'}}>  
             <Link to="register" style={{textDecoration: 'none'}}>
-                <Button type="submit" variant="contained" color="primary" className={theme.loginAcBut}>
+                <Button variant="contained" color="primary" className={theme.loginAcBut}>
                     CREATE ACCOUNT
                 </Button>
             </Link>
